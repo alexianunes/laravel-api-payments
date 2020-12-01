@@ -1,0 +1,41 @@
+version: "3"
+services:
+  web:
+    restart: always
+    build: .
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: payments
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./.docker/mysql-data:/var/lib/mysql/
+    networks:
+      - app-network
+
+  nginx:
+    build: ./.docker/nginx
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
