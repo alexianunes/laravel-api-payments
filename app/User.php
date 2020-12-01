@@ -10,13 +10,18 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const TYPES = [
+        1 => 'user',
+        2 => 'shopkeeper'
+    ];
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'document', 'balance_wallet', 'type'
     ];
 
     /**
