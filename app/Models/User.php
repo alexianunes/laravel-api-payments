@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,17 +10,17 @@ class User extends Authenticatable
     use Notifiable;
 
     const TYPES = [
-        1 => 'user',
-        2 => 'shopkeeper'
+        'common' => '1',
+        'shopkeeper' => '2',
     ];
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'document', 'balance_wallet', 'type'
+        'name', 'email', 'password', 'document', 'balance_wallet', 'type',
     ];
 
     /**

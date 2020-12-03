@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('document', 14)->unique();
             $table->decimal('balance_wallet', 10, 2)->default(0.00);
-            $table->enum('type', ['1', '2'])->default('1');
+            $table->enum('type', ['1', '2'])->default('1')->comment('1 para usuários comuns, 2 para lojistas');
             $table->timestamps();
         });
     }

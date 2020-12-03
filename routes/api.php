@@ -11,6 +11,4 @@
 |
  */
 
-Route::group(['prefix' => 'transactions'], function () {
-    Route::post('/', 'TransactionController@transfer');
-});
+Route::post('transaction', 'TransactionController')->name('transaction');
