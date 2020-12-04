@@ -39,6 +39,7 @@ class UserTest extends TestCase
         ]);
         
         $action = app(UserRepositoryInterface::class)->checkAuthorizationUser($userCommon->id);
+        $this->expectExceptionMessage('Shopkeepers cannot carry out transactions');
     }
 
     /**
@@ -110,5 +111,7 @@ class UserTest extends TestCase
             'balance_wallet' => 50.00
         ]);
         $action = app(UserRepositoryInterface::class)->subtractBalance($userCommon->id, $subtract_balance);
+
+        $this->expectExceptionMessage('Insufficient funds.');
     }
 }
