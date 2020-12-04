@@ -17,14 +17,25 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
+     * Returns the registered user
+     *
+     * @param integer $user_id
+     * @return App\Models\User
+     */
+    public function find(int $user_id): User
+    {
+        return $this->model->findOrFail($user_id);
+    }
+
+    /**
      * Checks if the user type allows transactions
      *
      * @param integer $user_id
      * @return boolean
      */
-    public function checkAuthorizationUser(int $user_id)
+    public function checkAuthorizationUser(int $user_id): bool
     {
-        $user = $this->model->findOrFail($user_id);
+        $user = $this->find($user_id);
 
         if ($user->type == $this->model::TYPES['shopkeeper']) {
             throw new Exception("Shopkeepers cannot carry out transactions");
@@ -40,9 +51,9 @@ class UserRepository implements UserRepositoryInterface
      * @param float $value
      * @return boolean
      */
-    public function addBalance(int $user_id, float $value)
+    public function addBalance(int $user_id, float $value): bool
     {
-        $user = $this->model->findOrFail($user_id);
+        $user = $this->find($user_id);
         $user->balance_wallet += $value;
         $user->save();
 
@@ -56,9 +67,9 @@ class UserRepository implements UserRepositoryInterface
      * @param float $value
      * @return boolean
      */
-    public function subtractBalance(int $user_id, float $value)
+    public function subtractBalance(int $user_id, float $value): bool
     {
-        $user = $this->model->findOrFail($user_id);
+        $user = $this->find($user_id);
 
         if ($value > $user->balance_wallet) {
             throw new Exception("Insufficient funds.");

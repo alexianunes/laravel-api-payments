@@ -13,8 +13,10 @@ class TransactionService implements TransactionServiceInterface
     private $transactionRepository;
     private $userRepository;
 
-    public function __construct(TransactionRepositoryInterface $transactionRepository, UserRepositoryInterface $userRepository)
-    {
+    public function __construct(
+        TransactionRepositoryInterface $transactionRepository,
+        UserRepositoryInterface $userRepository
+    ) {
         $this->transactionRepository = $transactionRepository;
         $this->userRepository = $userRepository;
     }
@@ -25,7 +27,7 @@ class TransactionService implements TransactionServiceInterface
      * @param array $params
      * @return boolean
      */
-    public function execute(array $params)
+    public function execute(array $params): bool
     {
         DB::beginTransaction();
         

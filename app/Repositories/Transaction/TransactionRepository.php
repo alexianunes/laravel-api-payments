@@ -23,7 +23,7 @@ class TransactionRepository implements TransactionRepositoryInterface
      * @param array $params
      * @return App\Models\Transaction
      */
-    public function transfer(array $params)
+    public function transfer(array $params): Transaction
     {
         return $this->model->create($params);
     }
@@ -33,7 +33,7 @@ class TransactionRepository implements TransactionRepositoryInterface
      *
      * @return boolean
      */
-    public function checkServiceAuthorization()
+    public function checkServiceAuthorization(): bool
     {
         $response = Http::get('https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6');
 
@@ -49,7 +49,7 @@ class TransactionRepository implements TransactionRepositoryInterface
      *
      * @return boolean
      */
-    public function notificationTransferCompleted()
+    public function notificationTransferCompleted(): bool
     {
         $response = Http::get('https://run.mocky.io/v3/b19f7b9f-9cbf-4fc6-ad22-dc30601aec04');
 
