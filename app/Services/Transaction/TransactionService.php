@@ -32,9 +32,9 @@ class TransactionService implements TransactionServiceInterface
         try {
             $this->userRepository->checkAuthorizationUser($params['payer_id']);
             $this->transactionRepository->checkServiceAuthorization();
-            $this->transactionRepository->transfer($params);
-            $this->userRepository->addBalance($params['payee_id'], $params['value']);
             $this->userRepository->subtractBalance($params['payer_id'], $params['value']);
+            $this->userRepository->addBalance($params['payee_id'], $params['value']);
+            $this->transactionRepository->transfer($params);
             $this->transactionRepository->notificationTransferCompleted();
             DB::commit();
             return true;
